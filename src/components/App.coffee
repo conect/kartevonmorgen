@@ -67,8 +67,14 @@ module.exports = React.createClass
           highlight : highlight
           entries   : (resultEntries unless view.panel is V.NEW)
           onClick   : (latlng) -> dispatch Actions.setMarker latlng
-          onMoveend : (center) -> dispatch Actions.setCenter center
-          onZoomend : (zoom)   -> dispatch Actions.setZoom zoom
+          onMoveend : (center, bbox) ->
+            dispatch Actions.setCenter center
+            dispatch Actions.setBbox bbox
+            dispatch Actions.search()
+          onZoomend : (zoom, bbox) ->
+            dispatch Actions.setZoom zoom
+            dispatch Actions.setBbox bbox
+            dispatch Actions.search()
 
         div className:"right",
           switch view.panel

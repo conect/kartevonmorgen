@@ -6,7 +6,7 @@ prefix  = (require "superagent-prefix") URL
 
 module.exports =
 
-  search: (txt='', cats=[], cb) ->
+  search: (txt='', cats=[], bbox=[], cb) ->
     unless txt.length > 0
       cb (new Error "invalid search text")
     else
@@ -15,6 +15,7 @@ module.exports =
         .use prefix
         .query entries: txt.trim().split ' '
         .query 'categories=' + cats.join ','
+        .query 'bbox=' + bbox.join ','
         .set 'Accept', 'application/json'
         .end cb
     undefined
